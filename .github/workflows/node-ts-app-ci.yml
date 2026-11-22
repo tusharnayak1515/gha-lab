@@ -7,6 +7,8 @@ on:
     branches: ['main','release/*']
   workflow_dispatch:
 
+run-name: Building app for ${{ github.ref_name }}
+
 jobs:
   build:
     name: Build
