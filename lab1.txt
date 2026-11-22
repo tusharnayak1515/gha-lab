@@ -1,0 +1,8 @@
+1. Create a workflow under .github/workflows/ that runs on workflow_dispatch and prints a greeting, the workflow name, and the triggering event. Confirm it appears in the Actions tab and can be started manually.
+---> greeting.yml
+
+2. Add push and pull request triggers to the workflow. Restrict pull requests to those targeting main, and restrict pushes to main. Verify the workflow runs for the intended events and does not run for a push to an unrelated branch.
+3. Create a Node.js CI workflow that checks out the repository, sets up a Node.js version, installs dependencies with the lockfile, and runs the project's test and build commands. Keep the commands in separate, named steps.
+4. Split CI into build and test jobs. Demonstrate that independent jobs run in parallel, then add needs so the test job waits for the build job. Make sure each job checks out the code and configures its own runtime.
+5. In one step, write a version string to $GITHUB_OUTPUT. Read it in a later step, then expose it as a job output and read it from a dependent job through needs.
+6. Add a repository Actions secret and use it in a step without printing it. Add a short note to the workflow README explaining the difference between GitHub-hosted and self-hosted runners and one tradeoff of each.

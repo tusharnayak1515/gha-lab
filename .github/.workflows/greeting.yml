@@ -1,0 +1,18 @@
+name: Greeting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  greet:
+    name: Greeting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet
+        shell: bash
+        run: |
+          echo "Hello Everyone. This is GitHub Actions Lab 1."
+          echo "============================================="
+          echo "Workflow Name: ${{ github.workflow }}"
+          echo "============================================="
+          echo "Trigerring Event: ${{ github.event_name }}"
