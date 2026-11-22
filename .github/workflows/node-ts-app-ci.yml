@@ -25,7 +25,7 @@ jobs:
       - name: Build App
         shell: bash
         working-directory: ./node-ts-app
-        run: npm ${{ vars.NODE_BUILD_COMMAND2 || 'build' }}
+        run: npm run ${{ vars.NODE_BUILD_COMMAND2 || 'build' }}
   test:
     name: Test - Parallel
     runs-on: ubuntu-latest
