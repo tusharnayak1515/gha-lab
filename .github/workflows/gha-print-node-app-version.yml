@@ -1,0 +1,55 @@
+name: Print Node.Js App Version
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION1 }}
+      - name: Fetch App name and version
+        id: fetch-details
+        shell: bash
+        working-directory: ./node-app
+        run: |
+          APP_NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "app-name=$APP_NAME" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ./node-app
+        run: npm ${{ vars.NODE_INSTALL_COMMAND1 || 'ci' }}
+      - name: Test App
+        shell:  bash
+        working-directory: ./node-app
+        run: npm run ${{ vars.NODE_TEST_COMMAND1 || 'test' }}
+    outputs:
+      app-name=${{ steps.fetch-details.outputs.app-name }}
+      version=${{ steps.fetch-details.outputs.version }}
+
+  report-details:
+    name: Report App details
+    needs: [build]
+    if: ${{ always() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print details
+        shell: bash
+        env:
+          APP_NAME=${{ needs.build.outputs.app-name }}
+          VERSION=${{ needs.build.outputs.version }}
+        run: |
+          echo "App Name: $APP_NAME"
+          echo "Version: $VERSION"
