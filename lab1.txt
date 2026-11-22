@@ -14,4 +14,4 @@
 ---> gha-print-node-app-version.yml
 
 6. Add a repository Actions secret and use it in a step without printing it. Add a short note to the workflow README explaining the difference between GitHub-hosted and self-hosted runners and one tradeoff of each.
----> gha-print-repo-secret.yml
+---> gha-use-repo-secret.yml
