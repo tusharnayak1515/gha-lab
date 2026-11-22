@@ -1,0 +1,28 @@
+name: Build Node.Js App
+
+on:
+  push:
+    branches: ['main','release/*']
+  pull_request:
+    branches: ['main','release/*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION1 }}
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ./node-app
+        run: npm ${{ vars.NODE_INSTALL_COMMAND1 || 'ci' }}
+      - name: Test App
+        shell:  bash
+        working-directory: ./node-app
+        run: npm run ${{ vars.NODE_TEST_COMMAND1 || 'test' }}
