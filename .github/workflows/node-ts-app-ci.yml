@@ -47,7 +47,7 @@ jobs:
   test2:
     name: Test - Sequential
     needs: [build]
-    if: ${{ always() && needs.build.result = 'success' }}
+    if: ${{ always() && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
