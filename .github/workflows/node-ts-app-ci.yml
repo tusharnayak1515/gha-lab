@@ -1,4 +1,4 @@
-name: Build Node.Js App
+name: Build Node.Ts App
 
 on:
   push:
