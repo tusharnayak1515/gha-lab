@@ -1,0 +1,20 @@
+{
+  "name": "node-ts-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A basic TypeScript Express app",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  }
+}

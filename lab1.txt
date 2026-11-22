@@ -8,6 +8,7 @@
 ---> node-app-ci.yml
 
 4. Split CI into build and test jobs. Demonstrate that independent jobs run in parallel, then add needs so the test job waits for the build job. Make sure each job checks out the code and configures its own runtime.
+---> node-ts-app-ci.yml
 
 5. In one step, write a version string to $GITHUB_OUTPUT. Read it in a later step, then expose it as a job output and read it from a dependent job through needs.
 
