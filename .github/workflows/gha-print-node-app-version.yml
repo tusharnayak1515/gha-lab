@@ -36,8 +36,8 @@ jobs:
         working-directory: ./node-app
         run: npm run ${{ vars.NODE_TEST_COMMAND1 || 'test' }}
     outputs:
-      app-name=${{ steps.fetch-details.outputs.app-name }}
-      version=${{ steps.fetch-details.outputs.version }}
+      app-name: ${{ steps.fetch-details.outputs.app-name }}
+      version: ${{ steps.fetch-details.outputs.version }}
 
   report-details:
     name: Report App details
