@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ vars.NODE_VERSION1 }}
+          node-version: ${{ vars.NODE_VERSION1 || '20' }}
       - name: Fetch App name and version
         id: fetch-details
         shell: bash
@@ -48,8 +48,8 @@ jobs:
       - name: Print details
         shell: bash
         env:
-          APP_NAME=${{ needs.build.outputs.app-name }}
-          VERSION=${{ needs.build.outputs.version }}
+          APP_NAME: ${{ needs.build.outputs.app-name }}
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           echo "App Name: $APP_NAME"
           echo "Version: $VERSION"
