@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: ${{ vars.NODE_VERSION2 || '22' }}
           cache: 'npm'
+          cache-dependency-path: ./node-ts-app/package-lock.json
       - name: Fetch App name and version
         id: fetch-details
         shell: bash
