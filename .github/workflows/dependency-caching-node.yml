@@ -34,7 +34,9 @@ jobs:
       - name: Build App
         shell: bash
         working-directory: ./node-ts-app
-        run: npm run ${{ vars.NODE_BUILD_COMMAND2 || 'build' }}
+        run: |
+          npm run ${{ vars.NODE_BUILD_COMMAND2 || 'build' }}
+          ls -a dist
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
