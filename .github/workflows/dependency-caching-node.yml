@@ -68,4 +68,4 @@ jobs:
         run: |
           test -s app/server.js
           echo "Validated build artifact for ${APP_NAME}@${VERSION}"
-          ls -la dist
+          ls -la app

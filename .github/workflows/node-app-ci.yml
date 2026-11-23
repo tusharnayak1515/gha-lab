@@ -3,6 +3,8 @@ name: Build Node.Js App
 on:
   push:
     branches: ['main','release/*']
+    paths-ignore:
+      - ".github/*"
   pull_request:
     branches: ['main','release/*']
   workflow_dispatch:
