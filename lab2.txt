@@ -1,6 +1,17 @@
 1. Add dependency caching to the Node.js CI workflow, keyed from the package manager lockfile. Separately upload the build output as a workflow artifact and download it in another job. Confirm the artifact contains the expected files and explain why it is not a dependency cache.
+---> dependency-caching-node.yml
+
 2. Add a matrix test job for at least three Node.js versions. Set fail-fast: false and a reasonable max-parallel value. Confirm the run creates a job per matrix value and reports each result.
+---> 
+
 3. Add a test-report step that runs when tests fail, and a cleanup or summary step that runs unless the workflow was cancelled. Use the appropriate status-check functions and verify the behavior by temporarily making a test fail.
+---> 
+
 4. Add a concurrency group to a deployment-like workflow. Use a group that distinguishes environments, keep active deployments from being cancelled, and test two runs for the same environment plus runs for different environments.
+---> 
+
 5. Create a staging GitHub environment with a test-only secret and a required reviewer. Reference the environment in a job, use an environment variable for non-sensitive configuration, and verify the approval gate before the job proceeds.
+--->
+
 6. Restrict a pull request CI workflow to read-only GITHUB_TOKEN permissions. Pass a pull request title to a script through an environment variable rather than interpolating it directly into shell code. Do not expose secrets to untrusted pull request code.
+---> 

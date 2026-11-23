@@ -1,0 +1,66 @@
+name: Build Node App - Dependency Caching
+
+on:
+  workflow_dispatch:
+
+run-name: Build using dependency caching - ${{ github.ref_name }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION2 || '22' }}
+          cache: 'npm'
+      - name: Fetch App name and version
+        id: fetch-details
+        shell: bash
+        working-directory: ./node-ts-app
+        run: |
+          APP_NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "app-name=$APP_NAME" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm ${{ vars.NODE_INSTALL_COMMAND2 || 'ci' }}
+      - name: Build App
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm run ${{ vars.NODE_BUILD_COMMAND2 || 'build' }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-artifact
+          path: dist/
+          retention-days: 1
+    outputs:
+      app-name: ${{ steps.fetch-details.outputs.app-name }}
+      version: ${{ steps.fetch-details.outputs.version }}
+
+  validate:
+    name: Validate artifact
+    needs: [build]
+    if: ${{ always() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifact
+          path: ./app
+      - name: Validate Artifact files
+        id: validate
+        shell: bash
+        env:
+          APP_NAME: ${{ needs.build.outputs.app-name }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          cd app
+          ls -a
