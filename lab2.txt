@@ -14,4 +14,4 @@
 ---> deployment-staging.yml
 
 6. Restrict a pull request CI workflow to read-only GITHUB_TOKEN permissions. Pass a pull request title to a script through an environment variable rather than interpolating it directly into shell code. Do not expose secrets to untrusted pull request code.
----> 
+---> ci-pull-request.yml

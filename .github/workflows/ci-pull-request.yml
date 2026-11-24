@@ -1,0 +1,20 @@
+name: CI - Pull Request
+
+on:
+  pull_request:
+    branches: ['feature/pr']
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Read PR Title
+        shell: bash
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          echo "Reading PR title...."
+          echo "Title: $PR_TITLE"
