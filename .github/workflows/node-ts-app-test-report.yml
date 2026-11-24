@@ -21,6 +21,7 @@ jobs:
         shell: bash
         run: |
           npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+          sleep 5s
           exit 1
       - name: Test App
         working-directory: ./node-ts-app
