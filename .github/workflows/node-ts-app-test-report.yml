@@ -41,7 +41,7 @@ jobs:
   
   cleanup:
     name: Cleanup
-    needs: [test]
+    needs: [test,test-report]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
