@@ -1,0 +1,27 @@
+name: Node App Matrix Job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test different Node.Js versions
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        node: [22,20,18]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: ./node-ts-app/package-lock.json
+      - name: Install Dependencies
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}

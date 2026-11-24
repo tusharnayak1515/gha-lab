@@ -2,7 +2,7 @@
 ---> dependency-caching-node.yml
 
 2. Add a matrix test job for at least three Node.js versions. Set fail-fast: false and a reasonable max-parallel value. Confirm the run creates a job per matrix value and reports each result.
----> 
+---> node-ts-app-matrix-test.yml
 
 3. Add a test-report step that runs when tests fail, and a cleanup or summary step that runs unless the workflow was cancelled. Use the appropriate status-check functions and verify the behavior by temporarily making a test fail.
 ---> 
