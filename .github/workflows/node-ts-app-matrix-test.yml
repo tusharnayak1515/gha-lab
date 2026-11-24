@@ -25,3 +25,7 @@ jobs:
         working-directory: ./node-ts-app
         shell: bash
         run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+      - name: Test App
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
