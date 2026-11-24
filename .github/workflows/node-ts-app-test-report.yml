@@ -1,0 +1,49 @@
+name: Node App Test Report Job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test Node TS App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION2 || '22' }}
+          cache: 'npm'
+          cache-dependency-path: ./node-ts-app/package-lock.json
+      - name: Install Dependencies
+        working-directory: ./node-ts-app
+        shell: bash
+        run: |
+          npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+          exit 1
+      - name: Test App
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
+
+  test-report:
+    name: Test Report
+    needs: [test]
+    if: ${{ always() && needs.test.result != 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Report
+        shell: bash
+        run: |
+          echo "Test Job failed!"
+  
+  cleanup:
+    name: Cleanup
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup
+        shell: bash
+        run: |
+          echo "Running cleanup..."
