@@ -1,0 +1,25 @@
+name: Deployment - Staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Staging
+    environment: Staging
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: false
+    steps:
+      - name: Deploy App
+        shell: bash
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          SERVER: ${{ vars.SERVER }}
+        run: |
+          echo "Deploying to staging..."
+          echo "TOKEN: $TOKEN"
+          echo "SERVER: $SERVER"
+          sleep 5s
+          echo "Deployment to Staging successful!"

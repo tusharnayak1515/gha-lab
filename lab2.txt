@@ -11,7 +11,7 @@
 ---> concurrent-deployment.yml
 
 5. Create a staging GitHub environment with a test-only secret and a required reviewer. Reference the environment in a job, use an environment variable for non-sensitive configuration, and verify the approval gate before the job proceeds.
---->
+---> deployment-staging.yml
 
 6. Restrict a pull request CI workflow to read-only GITHUB_TOKEN permissions. Pass a pull request title to a script through an environment variable rather than interpolating it directly into shell code. Do not expose secrets to untrusted pull request code.
 ---> 
