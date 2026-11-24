@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: ['feature/pr']
 
+run-name: CI - PR - Protected
+
 jobs:
   ci:
     name: CI
