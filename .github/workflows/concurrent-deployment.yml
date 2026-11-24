@@ -22,4 +22,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy App
         shell: bash
-        run: echo "Deploying App..."
+        run: |
+          echo "Deploying App..."
+          sleep 5s
+          echo "Deployed Successfully!"
