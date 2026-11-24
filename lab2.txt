@@ -8,7 +8,7 @@
 ---> node-ts-app-test-report.yml
 
 4. Add a concurrency group to a deployment-like workflow. Use a group that distinguishes environments, keep active deployments from being cancelled, and test two runs for the same environment plus runs for different environments.
----> 
+---> concurrent-deployment.yml
 
 5. Create a staging GitHub environment with a test-only secret and a required reviewer. Reference the environment in a job, use an environment variable for non-sensitive configuration, and verify the approval gate before the job proceeds.
 --->

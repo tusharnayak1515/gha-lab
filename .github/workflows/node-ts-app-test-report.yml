@@ -31,7 +31,7 @@ jobs:
   test-report:
     name: Test Report
     needs: [test]
-    if: ${{ always() && needs.test.result != 'success' }}
+    if: ${{ failure() }}
     runs-on: ubuntu-latest
     steps:
       - name: Test Report
