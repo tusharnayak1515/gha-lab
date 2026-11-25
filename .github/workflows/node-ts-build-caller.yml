@@ -1,0 +1,26 @@
+name: Build Node TS App - Caller
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: tusharnayak1515/github-actions-workflows/.github/workflows/node-ts-app-build-rw.yml@master
+    with:
+      source-directory: ${{ vars.SOURCE_DIR || '.' }}
+      node-version: ${{ vars.NODE_VERSION2 || '22' }}
+      npm-install-command: ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+      npm-build-command: ${{ vars.NPM_BUILD_COMMAND2 || 'build' }}
+      npm-test-command: ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
+
+  display:
+    name: Display Artifact Name
+    needs: [build]
+    if: ${{ always() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Artifact Name
+        shell: bash
+        env:
+          ARTIFACT_NAME: ${{ needs.build.outputs.artifact-name }}
+        run: echo "Artifact Name - $ARTIFACT_NAME"

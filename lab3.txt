@@ -3,7 +3,9 @@
 Caller workflow: test-caller-workflow.yml
 
 2. Move a repeated setup-and-build sequence into a composite action. Use it from two jobs and compare what belongs in a composite action with what belongs in a reusable workflow.
----> 
+---> Reusable workflow: tusharnayak1515/github-actions-workflows/.github/workflows/node-ts-app-build-rw.yml@master
+Composite Action: tusharnayak1515/github-actions-workflows/.github/actions/setup-install/action.yml@master
+Caller workflow: node-ts-build-caller.yml
 
 3. Build a package once, upload it as a versioned artifact, and create separate development and staging deployment jobs that download and deploy the same artifact. Record the artifact digest or version so you can verify both jobs used identical build output.
 ---> 
