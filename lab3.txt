@@ -1,6 +1,18 @@
 1. Create a reusable workflow triggered by workflow_call. Define a required string input and a secret, call it from another workflow, and return a version as a workflow output. Read that output from a later caller job.
+---> Reusable workflow: tusharnayak1515/github-actions-workflows/.github/workflows/test-reusable-workflow.yml@master
+Caller workflow: test-caller-workflow.yml
+
 2. Move a repeated setup-and-build sequence into a composite action. Use it from two jobs and compare what belongs in a composite action with what belongs in a reusable workflow.
+---> 
+
 3. Build a package once, upload it as a versioned artifact, and create separate development and staging deployment jobs that download and deploy the same artifact. Record the artifact digest or version so you can verify both jobs used identical build output.
+---> 
+
 4. Create a release workflow triggered by version tags such as v1.2.3. Validate the tag format, build the release package, and attach it to a GitHub Release. Give the workflow only the permissions needed to publish the release.
+---> 
+
 5. Create a reusable deployment workflow with an environment input for development, staging, or production. Use GitHub environments for environment-specific settings and ensure production approval rules cannot be bypassed by selecting a different input.
+---> 
+
 6. Add a post-deployment health check with a bounded retry period. Make a separate rollback job run when deployment validation fails, and ensure the rollback uses a known previous version rather than rebuilding the application.
+---> 

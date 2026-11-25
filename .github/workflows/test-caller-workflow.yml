@@ -1,0 +1,29 @@
+name: Test Caller Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: string
+        description: "User Name"
+        default: "User"
+        required: true
+
+jobs:
+  caller-greet:
+    uses: tusharnayak1515/github-actions-workflows/.github/workflows/test-reusable-workflow.yml@master
+    with:
+      name: ${{ inputs.name }}
+    secrets: inherit
+  read-output:
+    name: Read re-usable workflow output
+    needs: [caller-greet]
+    if: ${{ always() && needs.caller-greet.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read output
+        shell: bash
+        env:
+          RW_OUTPUT: ${{ needs.caller-greet.outputs.val }}
+        run: |
+          echo "$RW_OUTPUT"
