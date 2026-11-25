@@ -11,7 +11,6 @@ on:
 
 jobs:
   caller-greet:
-    name: Greet User
     uses: tusharnayak1515/github-actions-workflows/.github/workflows/test-reusable-workflow.yml@master
     with:
       name: ${{ inputs.name }}
@@ -28,4 +27,4 @@ jobs:
         env:
           RW_OUTPUT: ${{ needs.caller-greet.outputs.val }}
         run: |
-          echo "$RW_OUTPUT"
+          echo "$RW_OUTPUT || 'Failed to fetch output' "
