@@ -25,6 +25,6 @@ jobs:
       - name: Read output
         shell: bash
         env:
-          RW_OUTPUT: ${{ needs.caller-greet.outputs.val }}
+          RW_OUTPUT: ${{ needs.caller-greet.outputs.val || 'Failed to fetch output' }}
         run: |
-          echo "$RW_OUTPUT || 'Failed to fetch output' "
+          echo "$RW_OUTPUT"
