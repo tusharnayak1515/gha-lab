@@ -11,6 +11,7 @@ on:
 
 jobs:
   caller-greet:
+    name: Greet User
     uses: tusharnayak1515/github-actions-workflows/.github/workflows/test-reusable-workflow.yml@master
     with:
       name: ${{ inputs.name }}
