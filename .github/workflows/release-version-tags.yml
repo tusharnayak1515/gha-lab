@@ -31,6 +31,7 @@ jobs:
         shell: bash
         run: zip -r release-${{ github.ref_name }}.zip dist/
       - name: Create GitHub Release
+        working-directory: ./node-ts-app
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
