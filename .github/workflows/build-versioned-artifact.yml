@@ -46,7 +46,7 @@ jobs:
           touch artifact.txt
           echo "$ARTIFACT_NAME" >> artifact.txt
 
-          ls -a dist
+          ls -a
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
