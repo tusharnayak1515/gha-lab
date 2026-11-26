@@ -1,0 +1,84 @@
+name: Build versioned artifact and deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION2 || '22' }}
+          cache: 'npm'
+          cache-dependency-path: './node-ts-app/package-lock.json'
+      - name: Determine artifact name
+        id: determine-artifact-name
+        working-directory: ./node-ts-app
+        shell: bash
+        run: |
+          APP_NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          ARTIFACT_NAME="${APP_NAME}-${VERSION}"
+          echo "artifact-name=$ARTIFACT_NAME" >> "$GITHUB_OUTPUT"
+      - name: Install Dependencies
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+      - name: Build App
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm run ${{ vars.NPM_BUILD_COMMAND2 || 'build' }}
+      - name: Test App
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm run ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
+      - name: Prepare Artifact
+        working-directory: ./node-ts-app
+        shell: bash
+        run: |
+          ARTIFACT_NAME=${{ steps.determine-artifact-name.outputs.artifact-name }}
+          cd dist
+          touch artifact.txt
+          echo "$ARTIFACT_NAME" >> artifact.txt
+
+          ls -a dist
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.determine-artifact-name.outputs.artifact-name }}
+          path: node-ts-app/dist/
+          retention-days: 1
+          include-hidden-files: true
+    outputs:
+      artifact-name: ${{ steps.determine-artifact-name.outputs.artifact-name }}
+
+  deploy:
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        env: [DEV,QA]
+    name: Deploy App - ${{ matrix.env }}
+    needs: [build]
+    if: ${{ always() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v8
+        with:
+          with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: app/
+      - name: Deploy App
+        shell: bash
+        run: |
+          cd app
+          cat artifact.txt
+          ARTIFACT_NAME=$(cat artifact.txt)
+          echo "${{ matrix.env }} - ARTIFACT_NAME : ${ARTIFACT_NAME}" >> $GITHUB_STEP_SUMMARY
+          

@@ -8,7 +8,7 @@ Composite Action: tusharnayak1515/github-actions-workflows/.github/actions/setup
 Caller workflow: node-ts-build-caller.yml
 
 3. Build a package once, upload it as a versioned artifact, and create separate development and staging deployment jobs that download and deploy the same artifact. Record the artifact digest or version so you can verify both jobs used identical build output.
----> 
+---> build-versioned-artifact.yml
 
 4. Create a release workflow triggered by version tags such as v1.2.3. Validate the tag format, build the release package, and attach it to a GitHub Release. Give the workflow only the permissions needed to publish the release.
 ---> 
