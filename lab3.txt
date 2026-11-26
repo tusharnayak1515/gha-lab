@@ -14,7 +14,9 @@ Caller workflow: node-ts-build-caller.yml
 ---> release-version-tags.yml
 
 5. Create a reusable deployment workflow with an environment input for development, staging, or production. Use GitHub environments for environment-specific settings and ensure production approval rules cannot be bypassed by selecting a different input.
----> 
+--->  Reusable workflow: tusharnayak1515/github-actions-workflows/.github/workflows/deploy-rw-basic.yml@master
+
+Caller workflow: deploy-env-caller.yml
 
 6. Add a post-deployment health check with a bounded retry period. Make a separate rollback job run when deployment validation fails, and ensure the rollback uses a known previous version rather than rebuilding the application.
 ---> 

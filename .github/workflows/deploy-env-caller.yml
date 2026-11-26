@@ -1,0 +1,14 @@
+name: Deploy App - RW Caller
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
+
+jobs:
+  deploy:
+    uses: tusharnayak1515/github-actions-workflows/.github/workflows/deploy-rw-basic.yml@master
+    with:
+      environment: ${{ inputs.environment }}
