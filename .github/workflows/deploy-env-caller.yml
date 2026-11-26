@@ -7,6 +7,8 @@ on:
         type: environment
         required: true
 
+run-name: Deploy RW Caller - ${{ inputs.environment }}
+
 jobs:
   deploy:
     uses: tusharnayak1515/github-actions-workflows/.github/workflows/deploy-rw-basic.yml@master
