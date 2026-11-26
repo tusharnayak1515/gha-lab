@@ -1,0 +1,38 @@
+name: Release Version Tags
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions: {}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION2 || '22' }}
+          cache: 'npm'
+          cache-dependency-path: './node-ts-app/package-lock.json'
+      - name: Install Dependencies & Build App
+        shell: bash
+        working-directory: ./node-ts-app
+        run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }} && npm run ${{ vars.NPM_BUILD_COMMAND2 || 'build' }}
+      - name: Archive dist folder
+        run: zip -r release-${{ github.ref_name }}.zip dist/
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            release-${{ github.ref_name }}.zip \
+            --generate-notes \
+            --verify-tag

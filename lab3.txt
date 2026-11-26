@@ -11,7 +11,7 @@ Caller workflow: node-ts-build-caller.yml
 ---> build-versioned-artifact.yml
 
 4. Create a release workflow triggered by version tags such as v1.2.3. Validate the tag format, build the release package, and attach it to a GitHub Release. Give the workflow only the permissions needed to publish the release.
----> 
+---> release-version-tags.yml
 
 5. Create a reusable deployment workflow with an environment input for development, staging, or production. Use GitHub environments for environment-specific settings and ensure production approval rules cannot be bypassed by selecting a different input.
 ---> 
