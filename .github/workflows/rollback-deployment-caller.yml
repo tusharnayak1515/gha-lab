@@ -1,0 +1,14 @@
+name: Deployment with Rollback Caller
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
+
+jobs:
+  deploy:
+    uses: tusharnayak1515/github-actions-workflows/.github/workflows/rollback-deployment-rw.yml@master
+    with:
+      environment: ${{ inputs.environment }}
