@@ -7,6 +7,8 @@ on:
         type: environment
         required: true
 
+run-name: Deployment with Rollback Caller - ${{ inputs.environment }}
+
 jobs:
   deploy:
     uses: tusharnayak1515/github-actions-workflows/.github/workflows/rollback-deployment-rw.yml@master
