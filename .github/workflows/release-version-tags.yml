@@ -23,10 +23,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './node-ts-app/package-lock.json'
       - name: Install Dependencies & Build App
-        shell: bash
         working-directory: ./node-ts-app
+        shell: bash
         run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }} && npm run ${{ vars.NPM_BUILD_COMMAND2 || 'build' }}
       - name: Archive dist folder
+        working-directory: ./node-ts-appp
+        shell: bash
         run: zip -r release-${{ github.ref_name }}.zip dist/
       - name: Create GitHub Release
         env:
