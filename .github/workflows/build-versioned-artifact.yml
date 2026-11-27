@@ -71,7 +71,6 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v8
         with:
-          with:
           name: ${{ needs.build.outputs.artifact-name }}
           path: app/
       - name: Deploy App
