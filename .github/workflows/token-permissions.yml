@@ -67,6 +67,7 @@ jobs:
           path: dist/
       - name: Publish Package
         shell: bash
+        working-directory: './dist'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
