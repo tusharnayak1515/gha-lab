@@ -31,6 +31,12 @@ jobs:
         working-directory: ./node-ts-app
         shell: bash
         run: npm run ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
+      - name: Prepare Artifact
+        working-directory: ./node-ts-app
+        shell: bash
+        run: |
+          cp package.json dist/
+          ls -a dist/
       - name: Upload Artifact
         uses: actions/upload-artifact@v7
         with:
