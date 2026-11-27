@@ -52,8 +52,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ vars.NODE_VERSION2 || '22' }}
-          cache: 'npm'
-          cache-dependency-path: './node-ts-app/package-lock.json'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@tusharnayak1515'
       - name: Download Artifact
         uses: actions/download-artifact@v8
         with:
