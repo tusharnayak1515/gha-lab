@@ -43,7 +43,7 @@ jobs:
     needs: [test]
     if: ${{ always() && needs.test.result == 'success' && !cancelled() }}
     permissions:
-      contents: write
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -58,10 +58,9 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: build-artifact
-          path: app/
+          path: dist/
       - name: Publish Package
         shell: bash
-        working-directory: './node-ts-app'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish

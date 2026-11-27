@@ -3,9 +3,11 @@
   "version": "1.0.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com"
+    "url": "https://github.com/tusharnayak1515/gha-lab.git"
   },
-  "private": true,
+   "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "A basic TypeScript Express app",
   "main": "dist/server.js",
   "scripts": {
