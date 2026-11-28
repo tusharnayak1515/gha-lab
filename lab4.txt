@@ -8,7 +8,7 @@ Documentation:
 Replace vX.Y.Z with the release that the pinned commit actually corresponds to—don’t guess based on the major version. When reviewing an update, check the upstream release notes and commit, update the SHA and label together, and run the workflow to verify it. This documents the pin in setup-node-commit-hash.yml without adding a separate document.
 
 3. Configure a production GitHub environment with allowed branches, required reviewers, and environment-scoped secrets. Add a deployment job that targets the environment and verify a disallowed branch cannot deploy.
----> 
+---> deploy-env-caller.yml
 
 4. Implement fork pull request CI with pull_request, read-only permissions, no secrets, and a GitHub-hosted runner. If adding a pull request comment, put it in a separate minimal privileged workflow that does not check out or execute pull request code.
 ---> 
