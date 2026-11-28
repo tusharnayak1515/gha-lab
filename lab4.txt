@@ -2,7 +2,10 @@
 ---> token-permissions.yml
 
 2. Pin one third-party action to a reviewed full commit SHA. Document its upstream version, selected commit, and a process for reviewing updates so pinning does not leave the action indefinitely outdated.
----> 
+---> setup-node-commit-hash.yml
+
+Documentation:
+Replace vX.Y.Z with the release that the pinned commit actually corresponds to—don’t guess based on the major version. When reviewing an update, check the upstream release notes and commit, update the SHA and label together, and run the workflow to verify it. This documents the pin in setup-node-commit-hash.yml without adding a separate document.
 
 3. Configure a production GitHub environment with allowed branches, required reviewers, and environment-scoped secrets. Add a deployment job that targets the environment and verify a disallowed branch cannot deploy.
 ---> 

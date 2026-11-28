@@ -1,0 +1,30 @@
+name: Setup Node - Commit Hash
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@1acbd4c02f0ca4d959e23850ad70c50828476634
+        with:
+          node-version: ${{ vars.NODE_VERSION2 || '22' }}
+          cache: 'npm'
+          cache-dependency-path: ./node-ts-app/package-lock.json
+      - name: Install Dependencies
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm ${{ vars.NPM_INSTALL_COMMAND2 || 'ci' }}
+      - name: Build App
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm run ${{ vars.NPM_BUILD_COMMAND2 || 'build' }}
+      - name: Test App
+        working-directory: ./node-ts-app
+        shell: bash
+        run: npm run ${{ vars.NPM_TEST_COMMAND2 || 'test' }}
